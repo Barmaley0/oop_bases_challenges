@@ -10,8 +10,21 @@
 
 
 class BankAccount:
-    pass  # код писать тут
+    def __init__(self, owner_full_name: str, balance: float):
+        self.owner_full_name = owner_full_name
+        self.balance = balance
 
+    def decrease_balance(self, income: float):
+        if income <= 0:
+            raise ValueError("Income must be a positive number.")
+        self.balance -= income
+        if income < 0:
+            raise ValueError("The balance cannot be negative.")
 
 if __name__ == '__main__':
-    pass  # код писать тут
+    account = BankAccount("Lev Nikolaevich", 100.01)
+    account.decrease_balance(50.32)
+    print(f"Balance after decreasing by 50.32: {account.balance:.2f}")
+    account.decrease_balance(100.50)
+    if account.balance < 0:
+        raise ValueError("The balance cannot be negative.")
