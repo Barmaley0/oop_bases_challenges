@@ -22,9 +22,9 @@ class BankAccount:
     def decrease_balance(self, expense: float):
         if expense <= 0:
             raise ValueError("expense must be a positive number.")
-        self.balance -= expense
-        if expense < 0:
+        if self.balance - expense < 0:
             raise ValueError("The balance cannot be negative.")
+        self.balance -= expense
 
 if __name__ == '__main__':
     account = BankAccount("Lev Nikolaevich", 100.01)
