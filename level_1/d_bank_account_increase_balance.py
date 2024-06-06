@@ -15,8 +15,13 @@ class BankAccount:
         self.balance = balance
 
     def increase_balance(self, income: float):
-        pass  # код писать тут
+        if income <= 0:
+            raise ValueError("Income must be a positive number.")
+        self.balance += income
 
 
 if __name__ == '__main__':
-    pass  # код писать тут
+    account = BankAccount("Lev Nikolaevich", 100.01)
+    print(account.balance)
+    account.increase_balance(50.32)
+    print(account.balance)
