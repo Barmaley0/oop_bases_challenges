@@ -10,29 +10,40 @@
 
 
 class BankAccount:
-    def __init__(self, owner_full_name: str, balance: float):
+    def __init__(self, owner_full_name: str, initial_balance: float):
         self.owner_full_name = owner_full_name
-        self.balance = balance
+        self._balance = initial_balance
+
+    @property
+    def balance(self):
+        return self._balance
 
     def increase_balance(self, income: float):
         if income <= 0:
             raise ValueError("Income must be a positive number.")
-        self.balance += income
+        self._balance += income
 
     def decrease_balance(self, expense: float):
         if expense <= 0:
             raise ValueError("expense must be a positive number.")
         if self.balance - expense < 0:
             raise ValueError("The balance cannot be negative.")
-        self.balance -= expense
+        self._balance -= expense
+
+    def __str__(self):
+        return f"Owner: {self.owner_full_name}, Balance: {self._balance:.2f}"
 
 if __name__ == '__main__':
     account = BankAccount("Lev Nikolaevich", 100.01)
-    account.decrease_balance(50.32)
-    print(f"Balance after decreasing by 50.32: {account.balance:.2f}")
-    account.decrease_balance(100.50)
-    print(f"Balance after decreasing by 100.50: {account.balance:.2f}")
+    try:
+        account.decrease_balance(50.32)
+        print(f"Balance after decreasing by 50.32: {account.balance:.2f}")
+        account.decrease_balance(100.50)
+        if account.balance < 0:
+            raise ValueError("The balance cannot be negative.")
+        else:
+            print(f"Balance after decreasing by 100.50: {account.balance:.2f}")
+    except ValueError as error:
+        print(f"Error: {error}")
     account.increase_balance(50.50)
     print(f"Balance after increase by 55.50: {account.balance:.2f}")
-    if account.balance < 0:
-        raise ValueError("The balance cannot be negative.")
