@@ -8,10 +8,8 @@
     4. Создать экземпляр класс CreditAccount и вызвать у него каждый из возможных методов.
 """
 
-# код писать тут
 
-
-class CreditAccount:
+class BankAccount:
     def __init__(self, owner_full_name: str, balance: float):
         self.owner_full_name = owner_full_name
         self.balance = balance
@@ -22,10 +20,23 @@ class CreditAccount:
     def decrease_balance(self, amount: float):
         self.balance -= amount
 
+
+class CreditAccount(BankAccount):
+    def __init__(self, owner_full_name: str, balance: float):
+        super().__init__(owner_full_name, balance)
+
     def is_eligible_for_credit(self):
         return self.balance > 1000
 
 
 if __name__ == '__main__':
-    pass  # код писать тут
-
+    my_bank_account = BankAccount("Lev Nikolaevich", 5000)
+    print(f"Owner: {my_bank_account.owner_full_name}\nBalance: {my_bank_account.balance}")
+    my_bank_account.increase_balance(2000)
+    print(f"Owner: {my_bank_account.owner_full_name}\nBalance: {my_bank_account.balance}")
+    my_bank_account.decrease_balance(4000)
+    print(f"Owner: {my_bank_account.owner_full_name}\nbalance: {my_bank_account.balance}")
+    my_credit_account = CreditAccount(my_bank_account.owner_full_name, my_bank_account.balance)
+    print(f"Owner: {my_credit_account.owner_full_name}\nBalance: {my_credit_account.balance}")
+    if my_credit_account.is_eligible_for_credit():
+        print(f"{my_credit_account.owner_full_name} eligible for credit")
