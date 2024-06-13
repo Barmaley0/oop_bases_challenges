@@ -13,7 +13,7 @@ from datetime import datetime
 
 
 class Product:
-    def __init__(self, title, price, stock_quantity):
+    def __init__(self, title: str, price: float, stock_quantity: int):
         self.title = title
         self.price = price
         self.stock_quantity = stock_quantity
@@ -26,8 +26,13 @@ class Product:
 
 
 class AlcoholProduct(Product):
-    pass  # код писать тут
+    def __init__(self, title: str, price: float, stock_quantity: int):
+        super().__init__(title, price, stock_quantity)
+
+    def is_available(self):
+        return super().is_available() and datetime.now().hour in range(5, 11)
 
 
 if __name__ == '__main__':
-    pass  # код писать тут
+    product = AlcoholProduct("Whiskey", 150, 10)
+    print(f"{product.title} is available: {product.is_available()}")
