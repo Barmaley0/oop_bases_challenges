@@ -22,8 +22,6 @@ class BankAccount:
 
 
 class CreditAccount(BankAccount):
-    def __init__(self, owner_full_name: str, balance: float):
-        super().__init__(owner_full_name, balance)
 
     def is_eligible_for_credit(self):
         return self.balance > 1000
